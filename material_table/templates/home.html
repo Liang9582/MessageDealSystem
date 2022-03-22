@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+{#{% load staticfiles %}#}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>谱研互联信息管理系统登录</title>
+</head>
+<style>
+     input,button {
+         width: 320px;
+         height: 45px;
+         margin: 0px 8px;
+         border-radius: 10px;
+         text-indent: 10px; /*里面隐形的字体首行缩进*/
+         margin: 10px auto;
+     }
+    body{
+        background-size: 100%;
+        background-image: url("/static/images/base.jpeg");
+        {#background: lightblue;#}
+        text-align: center;
+    }
+</style>
+
+<body>
+    <div  style="text-align: center; margin-top: 60px">
+        <form action="" method="post" class="form-signin" >
+            {% csrf_token %}
+            <h1 style="color: white; font-size: 60px">欢迎登录谱研互联信息管理系统</h1><br><br><br>
+            <label style="color: white; font-size: 20px">账号：&nbsp</label>
+            <input name="username"  type="text" style="width: 200px;height: 25px" placeholder="🐕账号" required autofocus><br><br>
+            <label style="color: white; font-size: 20px">密码：&nbsp</label>
+            <input name="password" type="password" style="width: 200px;height: 25px"  placeholder="🔑密码" required><br>
+            <div style="padding-left: -22px; padding-right: -30px">
+                <input type="radio" name="rank" style="width: 20px; height: 20px;">
+                <label style="font-size: 20px;">是否管理员</label>
+            </div>
+            <div style="padding-left: 70px">
+                <button type="reset" style="width: 100px;height: 30px;font-size: 15px;color: palevioletred" >重置</button>&nbsp
+                <button type="submit" style="width: 100px;height: 30px;font-size: 15px;color: palevioletred" >登录</button>
+            </div>
+            <div style="padding-left: 70px">
+                <a href="{% url 'register' %}" style="width: 100px;height: 30px;font-size: 15px;color: palevioletred">去注册</a>
+            </div>
+            <p style="color: brown; padding-left: 100px">{{msg}}</p>
+        </form>
+    </div>
+</body>
+</html>

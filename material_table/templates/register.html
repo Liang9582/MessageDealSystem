@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+{#{% load staticfiles %}#}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>注册</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<!-- jQuery UI -->
+	<link href="https://code.jquery.com/ui/1.10.3/themes/redmond/jquery-ui.css" rel="stylesheet" media="screen">
+
+	<!-- Bootstrap -->
+	<link href="/static/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+	<!-- styles -->
+	<link href="/static/css/styles.css" rel="stylesheet">
+
+	<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+	<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+	<!--[if lt IE 9]>
+	<script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+	<script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+	<![endif]-->
+</head>
+
+<style>
+    body{
+        background-size: 100%;
+        background-image: url("/static/images/base.jpeg");
+        {#background: lightblue;#}
+        text-align: center;
+    }
+</style>
+
+<body>
+    <div class="header">
+         <div class="container">
+            <div class="row">
+               <div class="col-md-12">
+                  <!-- Logo -->
+                  <div class="logo">
+                     <h1><a href="home.html">谱研互联信息管理系统</a></h1>
+                  </div>
+               </div>
+            </div>
+         </div>
+    </div>
+
+    <div class="page-content container">
+        <div class="row" style="opacity: 0.9">
+            <div class="col-md-4 col-md-offset-4">
+                <div class="login-wrapper">
+                    <div class="box">
+                        <form class="content-wrap" role="form" action="/register/" method="post">
+                            <h6>注册</h6>
+                                {% csrf_token %}
+                            <input class="form-control" name="username" type="text" placeholder="请输入用户名">
+                            <input class="form-control" name="password" type="password" placeholder="请输入密码">
+                            <input class="form-control" name="password1" type="password" placeholder="再次确认密码">
+                                <div class="action">
+                                    <button type="submit" class="btn btn-primary">注册</button>
+                                </div>
+                            </form>
+                        <div class="already">
+                            <p>已有账户?</p>
+                            <a href="{% url 'base' %}">去登录</a>
+                        </div>
+                        <div>
+                            <p style="font-size: 20px; color: slateblue">
+                                {% if success %}
+                                    {{ success }}
+                                {% endif %}
+                            </p>
+                            <p style="font-size: 20px; color: red">
+                                {% if err %}
+                                {{ err }}
+                                {% endif %}
+                            </p>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="https://code.jquery.com/jquery.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="bootstrap/js/bootstrap.min.js"></script>
+    <script src="js/custom.js"></script>
+</body>
+
+</html>

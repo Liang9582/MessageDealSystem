@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+{#{% load staticfiles %}#}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>领料编辑</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- jQuery UI -->
+    <link href="https://code.jquery.com/ui/1.10.3/themes/redmond/jquery-ui.css" rel="stylesheet" media="screen">
+
+    <!-- Bootstrap -->
+    <link href="/static/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <!-- styles -->
+    <link href="/static/css/styles.css" rel="stylesheet">
+    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+</head>
+
+<style>
+    body{
+        background-size: 100%;
+        background-image: url("/static/images/home.jpeg");
+        text-align: center;
+    }
+</style>
+
+<body>
+<div class="header">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6">
+                <!-- Logo -->
+                <div class="logo">
+                    <h1 style="color: #c4e3f3">谱研互联信息管理系统</h1>
+                </div>
+            </div>
+
+            <div class="col-md-3">
+                <div class="navbar navbar-inverse" role="banner">
+                    <nav class="collapse navbar-collapse bs-navbar-collapse navbar-right" role="navigation">
+                        <ul class="nav navbar-nav">
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">个人设置 <b class="caret"></b></a>
+                                <ul class="dropdown-menu animated fadeInUp">
+<!--                                    <li><a href="profile.html">Profile</a></li>-->
+                                    <li><a href="{% url 'base' %}" style="color: #C97626">返回登录页面</a></li>
+                                    <li><a href="{% url 'update_password' %}" style="color: #C97626">更改密码</a></li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <!-- Logo -->
+                <div class="logo">
+                    <h1 style="color: #c4e3f3">{{ name }}，欢迎您</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="page-content">
+    <div class="row">
+        <div class="col-md-2">
+            <div class="sidebar content-box" style="display: block;">
+                <ul class="nav">
+                    <!-- Main menu -->
+        <!--                    <li><a href="index.html"><i class="glyphicon glyphicon-home"></i>首页</a></li>-->
+        {#            <li class="current"><a href="{% url 'material' %}"><i class="glyphicon glyphicon-list"></i> 物料信息</a></li>#}
+                    <li><a href="{% url 'welcome' %}"><i class="glyphicon glyphicon-circle-arrow-right"></i> 物料信息</a></li>
+                    <li><a href="{% url 'applyfor' %}"><i class="glyphicon glyphicon-circle-arrow-right"></i> 申购信息</a></li>
+                    <li><a href="{% url 'purchase' %}"><i class="glyphicon glyphicon-circle-arrow-right"></i> 采购信息</a></li>
+                    <li><a href="{% url 'putintolibrary' %}"><i class="glyphicon glyphicon-circle-arrow-right"></i> 入库信息</a></li>
+                    <li><a href="{% url 'inventory' %}"><i class="glyphicon glyphicon-circle-arrow-right"></i> 库存信息</a></li>
+                    <li  class="current"><a href="{% url 'receive' %}"><i class="glyphicon glyphicon-circle-arrow-right"></i> 领料信息</a></li>
+                    <li><a href="{% url 'out_of_library' %}"><i class="glyphicon glyphicon-circle-arrow-right"></i> 出库信息</a></li>
+{#                    <li class="submenu">#}
+{#                        <a href="#">#}
+{#                            <i class="glyphicon glyphicon-list"></i> 系统设置#}
+{#                            <span class="caret pull-right"></span>#}
+{#                        </a>#}
+{#                        <!-- Sub menu -->#}
+{#                        <ul>#}
+{#                            <li><a href="/login">Login</a></li>#}
+{#                            <li><a href="/signup">Signup</a></li>#}
+{#                        </ul>#}
+{#                    </li>#}
+                </ul>
+            </div>
+        </div>
+
+        <div class="col-md-10">
+            <div class="content-box-large">
+                <div class="panel-heading">
+                    <div class="panel-title">编辑领料信息</div>
+                </div>
+                <div class="panel-body">
+                    <form class="form-horizontal" role="form" action="/update_receive/" method="post">
+                        {% csrf_token %}
+                        <div class="form-group">
+                            <label for="input" class="col-sm-2 control-label">领料编号:</label>
+                            <div class="col-sm-10">
+                                <input class="form-control" id="input" name="receive_number" value="{{ receive.receive_number }}" readonly>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="input1" class="col-sm-2 control-label">库存编号:</label>
+                            <div class="col-sm-10">
+                                <input class="form-control" id="input1" name="inventory_number" list="typelist" placeholder="请选择库存编号">
+                                <datalist id="typelist">
+                                    {% for s in inventory %}
+                                        <option> {{ s.inventory_number }} </option>
+                                    {% endfor %}
+                                </datalist>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="input4" class="col-sm-2 control-label">领料人:</label>
+                            <div class="col-sm-10">
+                                <input class="form-control" id="input4" placeholder="请输入领料人" name="receive_people" value="{{ receive.receive_people }}">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="input2" class="col-sm-2 control-label">领取数量:</label>
+                            <div class="col-sm-10">
+                                <input class="form-control" id="input2" placeholder="请输入领取数量" name="receive_amount" value="{{ receive.receive_amount }}">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="col-sm-offset-2 col-sm-10">
+                                <button type="submit" class="btn btn-primary">保存</button>
+                                <button type="reset" class="btn btn-default">重置</button>
+                                <button type="submit" formmethod="get" formaction="/receive" class="btn btn-default">返回</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<p style="font-size: 20px; color: greenyellow">
+    {% if success %}
+        {{ success }}
+    {% endif %}
+</p>
+
+<p style="font-size: 20px; color: red">
+    {% if err %}
+    {{ err }}
+    {% endif %}
+</p>
+
+
+<link href="/static/vendors/datatables/dataTables.bootstrap.css" rel="stylesheet" media="screen">
+
+<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+<script src="https://code.jquery.com/jquery.js"></script>
+<!-- jQuery UI -->
+<script src="https://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
+<!-- Include all compiled plugins (below), or include individual files as needed -->
+<script src="/static/bootstrap/js/bootstrap.min.js"></script>
+
+<script src="/static/vendors/datatables/js/jquery.dataTables.min.js"></script>
+
+<script src="/static/vendors/datatables/dataTables.bootstrap.js"></script>
+
+<script src="/static/js/custom.js"></script>
+<script src="/static/js/tables.js"></script>
+
+</body>
+</html>
